@@ -15,19 +15,19 @@ void Gera_Vetor (int *e, int t) {
 void Merge (int vetor[MAX],int comeco,int meio,int fim)
 {
 	int i=comeco;
-	int j=meio;
+	int j=meio+1;
 	int k=0;
 	int vetor3[MAX];
-	while ((i<=meio) && (j<fim ))					/*Até terminar de analisar pelo menos uma metade inteira*/
+	while ((i<=meio) && (j<=fim ))					/*Até terminar de analisar pelo menos uma metade inteira*/
 	{
-		if ( vetor[i]<=vetor[j+1] )
+		if ( vetor[i]<=vetor[j] )
 		{
 			vetor3[k]=vetor[i];
 			i++;
 		}
 		else
 		{
-			vetor3[k]=vetor[j+1];
+			vetor3[k]=vetor[j];
 			j++;
 		}
 		k++;
@@ -46,7 +46,7 @@ void Merge (int vetor[MAX],int comeco,int meio,int fim)
 	{
 		while (k<=(fim-comeco))
 		{
-			vetor3[k]=vetor[j+1];
+			vetor3[k]=vetor[j];
 			j++;
 			k++;
 		}
