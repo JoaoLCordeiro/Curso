@@ -32,7 +32,7 @@ void CriaNovaGen (int **matriz1,int **matriz2,int l,int c)
 		for ( j = 0 ; j<c ; j++ )
 		{			
 			contvizinhos=VerificaElemento(matriz1,l,c,i,j);
-			if ((contvizinhos < 2)||(contvizinhos > 3))
+			if ((contvizinhos < 2)||(contvizinhos > 3))	/*da um valor para o elemento da matriz depedendendo do calculo de vizinhos*/
 			{
 				matriz2[i][j]=0;
 			}
@@ -48,7 +48,7 @@ void CriaNovaGen (int **matriz1,int **matriz2,int l,int c)
 	}
 }
 
-void CopiaMatriz (int **matriz1,int **matriz2,int l,int c)
+void CopiaMatriz (int **matriz1,int **matriz2,int l,int c)		/*serve pra copiar a geração nova pra antiga*/
 {
 	int i;
 	int j;
@@ -61,7 +61,7 @@ void CopiaMatriz (int **matriz1,int **matriz2,int l,int c)
 	}
 }
 
-void ImprimeMatriz (int **matriz,int l,int c)
+void ImprimeMatriz (int **matriz,int l,int c)				/*imrpime a matriz na tela*/
 {
 	int i;
 	int j;
@@ -84,7 +84,7 @@ void ImprimeMatriz (int **matriz,int l,int c)
 
 int main (int argc,char **argv)
 {
-	if ( argc != 4 )
+	if ( argc != 4 )						/*testa o numero de argumentos*/
 	{
 		printf("Número incorreto de parâmetros\n");
 		return 1;
@@ -92,7 +92,7 @@ int main (int argc,char **argv)
 	int l = atoi (argv[1]);
 	int c = atoi (argv[2]);
 	int ngen = atoi (argv[3]);
-	int **genatual = malloc (l*sizeof(int*));
+	int **genatual = malloc (l*sizeof(int*));			/*aloca as matrizes*/
 	int **gennova = malloc (l*sizeof(int*));
 	int i;
 	for ( i=0 ; i<l ; i++ )
@@ -124,11 +124,11 @@ int main (int argc,char **argv)
 	for ( contgen = 0 ; contgen<ngen ; contgen++ )
 	{
 		printf ("\033[H\033[J");
-		printf ("Geração %d",(contgen+1));
+		printf ("Geração %d \n",(contgen+1));
 		ImprimeMatriz (genatual,l,c);			
 		CriaNovaGen (genatual,gennova,l,c);
 		CopiaMatriz (genatual,gennova,l,c);
-		usleep (999999);
+		usleep (100000);
 	}
 	printf ("\033[H\033[J");
 	return 0;
