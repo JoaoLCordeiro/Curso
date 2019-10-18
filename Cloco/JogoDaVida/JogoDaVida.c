@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <curses.h>
+#include <unistd.h>
 
 int VerificaElemento (int **matriz1,int nl,int nc,int l,int c)
 {
@@ -60,6 +61,27 @@ void CopiaMatriz (int **matriz1,int **matriz2,int l,int c)
 	}
 }
 
+void ImprimeMatriz (int **matriz,int l,int c)
+{
+	int i;
+	int j;
+	for ( i = 0 ; i<l ; i++ )
+	{
+		for ( j = 0 ; j<c ; j++ )
+		{
+			if (matriz[i][j] == 0)
+			{
+				printf(" ");
+			}
+			else
+			{
+				printf("X");
+			}
+		}
+		printf("\n");
+	}					
+}
+
 int main (int argc,char **argv)
 {
 	if ( argc != 4 )
@@ -69,7 +91,7 @@ int main (int argc,char **argv)
 	}
 	int l = atoi (argv[1]);
 	int c = atoi (argv[2]);
-	int g = atoi (argv[3]);
+	int ngen = atoi (argv[3]);
 	int **genatual = malloc (l*sizeof(int*));
 	int **gennova = malloc (l*sizeof(int*));
 	int i;
@@ -89,7 +111,7 @@ int main (int argc,char **argv)
 	}
 	scanf("%d",&i);
 	scanf("%d",&j);
-	while ( (( j != -1 )&&( j < c)) || (( i != -1 )&&( i < l )) )
+	while ( (( j != -1 )&&( j < c)) && (( i != -1 )&&( i < l )) )
 	{
 		genatual[i][j] = 1;
 		scanf("%d",&i);
@@ -98,29 +120,16 @@ int main (int argc,char **argv)
 			scanf("%d",&j);
 		}
 	}
-	/*initscr();
-	clear();*/
-	int h;
-	for ( h = 0 ; h<g ; h++ )
+	int contgen;
+	for ( contgen = 0 ; contgen<ngen ; contgen++ )
 	{
-		for ( i = 0 ; i<l ; i++ )
-		{
-			for ( j = 0 ; j<c ; j++ )
-			{
-				if (genatual[i][j] == 0)
-				{
-					printf(" ");
-				}
-				else
-				{
-					printf("X");
-				}
-			}
-			printf("\n");
-		}
+		printf ("\033[H\033[J");
+		printf ("Geração %d",(contgen+1));
+		ImprimeMatriz (genatual,l,c);			
 		CriaNovaGen (genatual,gennova,l,c);
 		CopiaMatriz (genatual,gennova,l,c);
+		usleep (999999);
 	}
-	/*endwin();*/
+	printf ("\033[H\033[J");
 	return 0;
 }
