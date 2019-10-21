@@ -80,11 +80,12 @@ int insere_fim_lista(int x, t_lista *l)
 
 int insere_ordenado_lista(int x, t_lista *l)
 {
-	if (l->ini != NULL)
+	if ((l->ini != NULL)&&(l->ini->chave < x))
 	{
 		t_nodo *p = l->ini;
 		t_nodo *q;
-		while (p->chave < x)
+		while ((p != NULL) && (p->chave < x))
+		/*while ((p->chave < x) && (p->prox != NULL))*/
 		{
 			q = p;
 			p = p->prox;
@@ -97,11 +98,9 @@ int insere_ordenado_lista(int x, t_lista *l)
 	}
 	else
 	{
-		free (l->ini);
 		t_nodo *new = malloc (sizeof(t_nodo));
-		new->prox = NULL;
+		new->prox = l->ini;
 		new->chave = x;
-		printf("%p",new);
 		l->ini = new;
 		l->tamanho++;
 	}
@@ -119,8 +118,8 @@ void imprime_lista (t_lista *l)
 			p = p->prox;
 			printf("%d ", p->chave);
 		}
-		printf("\n");
 	}
+	printf("\n");
 }
 
 int remove_primeiro_lista(int *item, t_lista *l)

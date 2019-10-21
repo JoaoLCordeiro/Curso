@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h>4
 #include "lista.h"
 
 #define MAX 5
