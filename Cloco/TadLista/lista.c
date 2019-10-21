@@ -97,9 +97,11 @@ int insere_ordenado_lista(int x, t_lista *l)
 	}
 	else
 	{
+		free (l->ini);
 		t_nodo *new = malloc (sizeof(t_nodo));
 		new->prox = NULL;
 		new->chave = x;
+		printf("%p",new);
 		l->ini = new;
 		l->tamanho++;
 	}
