@@ -44,6 +44,10 @@ void destroi_lista(t_lista *l)
 		l->ini = NULL;
 		l->tamanho = 0;
 	}
+	else
+	{
+		printf("Nao destruida: lista vazia");
+	}
 }
 
 int insere_inicio_lista(int x, t_lista *l)
@@ -113,7 +117,7 @@ void imprime_lista (t_lista *l)
 	if ( l->tamanho != 0 )
 	{
 		t_nodo *p = l->ini;
-		printf (" tam : %d -> ",l->tamanho);
+		printf ("tam: %d -> ",l->tamanho);
 		if ( p != NULL )
 		{
 			printf ("%d ", p->chave);
@@ -182,6 +186,7 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 			*item = p->chave;
 			l->ini = p->prox;
 			l->tamanho--;
+			return 1;
 		}
 		else
 		{
@@ -194,12 +199,13 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 				{
 					*item = p->chave;
 					q->prox = p->prox;
-					printf("removeu %d\n",*item);
 					l->tamanho--;
+					return 1;
 				}
 			}
 		}
-		return 1;
+		printf ("Nao removido: elemento nao encontrado\n");
+		return 0;
 	}
 	else
 	{
@@ -209,11 +215,37 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 
 int pertence_lista(int chave, t_lista *l)
 {
-	return 1;
+	t_nodo *p = l->ini;
+	while (p != NULL)
+	{
+		if (p->chave == chave)
+		{
+			return 1;
+		}
+		p = p->prox;
+	}
+	return 0;
 }
 
 int concatena_listas(t_lista *l, t_lista *m)
 {
+	t_nodo *p = l->ini;
+	if (p != NULL)
+	{
+		while (p->prox != NULL)
+		{
+			p = p->prox;
+		}
+		p->prox = m->ini;
+		m->ini = NULL;
+		l->tamanho = l->tamanho + m->tamanho;
+		m->tamanho = 0;
+	}
+	else
+	{
+		l->ini = m->ini;
+		l->tamanho = m->tamanho;
+	}
 	return 1;
 }
 

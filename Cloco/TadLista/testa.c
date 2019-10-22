@@ -106,7 +106,7 @@ int testa_concatencao(t_lista *l, t_lista *m) {
     }
     printf("l: ");
     imprime_lista(l);
-    printf("m:\n");
+    printf("m: ");
     imprime_lista(m);
     return 1;
 }
@@ -147,7 +147,7 @@ void destroi_todas_listas(t_lista *l, t_lista *m, t_lista *o, t_lista *c) {
     printf("destroi o\n");
     destroi_lista(o);
     imprime_lista(o);
-    printf("destroi c\n");
+    printf("destroi c");
     destroi_lista(c);
     imprime_lista(c);
 }
@@ -169,9 +169,9 @@ int main() {
     if (! cria_listas(&l,&m,&o,&c)) return 1; 
     if (! testa_insercoes(&l,&m,&o)) return 1; 
     if (! testa_copia(&o,&c)) return 1; 
-    /*if (! testa_concatencao(&l,&m)) return 1;*/
+    if (! testa_concatencao(&l,&m)) return 1;
     if (! testa_remocoes(&l, &o, &c)) return 1;
-    /*testa_busca(&c);*/
+    testa_busca(&c);
     destroi_todas_listas(&l, &m, &o, &c);
 
     return 0;
