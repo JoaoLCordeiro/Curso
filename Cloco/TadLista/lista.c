@@ -85,7 +85,6 @@ int insere_ordenado_lista(int x, t_lista *l)
 		t_nodo *p = l->ini;
 		t_nodo *q;
 		while ((p != NULL) && (p->chave < x))
-		/*while ((p->chave < x) && (p->prox != NULL))*/
 		{
 			q = p;
 			p = p->prox;
@@ -94,7 +93,6 @@ int insere_ordenado_lista(int x, t_lista *l)
 		q->prox = new;
 		new->prox = p;
 		new->chave = x;
-		l->tamanho++;
 	}
 	else
 	{
@@ -102,21 +100,25 @@ int insere_ordenado_lista(int x, t_lista *l)
 		new->prox = l->ini;
 		new->chave = x;
 		l->ini = new;
-		l->tamanho++;
 	}
+	l->tamanho++;
 	return 1;
 }
 
 void imprime_lista (t_lista *l)
 {
-	t_nodo *p = l->ini;
-	if ( p != NULL )
+	if ( l->tamanho != 0 )
 	{
-		printf ("%d ", p->chave);
-		while ( p->prox != NULL )
+		t_nodo *p = l->ini;
+		printf (" tam : %d -> ",l->tamanho);
+		if ( p != NULL )
 		{
-			p = p->prox;
-			printf("%d ", p->chave);
+			printf ("%d ", p->chave);
+			while ( p->prox != NULL )
+			{
+				p = p->prox;
+				printf("%d ", p->chave);
+			}
 		}
 	}
 	printf("\n");
@@ -124,17 +126,72 @@ void imprime_lista (t_lista *l)
 
 int remove_primeiro_lista(int *item, t_lista *l)
 {
-	return 1;
+	if (l->ini != NULL)
+	{
+		*item = l->ini->chave;
+		l->ini = l->ini->prox;
+		l->tamanho--;
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 int remove_ultimo_lista(int *item, t_lista *l)
 {
-	return 1;
+	printf("%d ",l->tamanho);
+	if (l->tamanho != 0)
+	{
+		t_nodo *p = l->ini;
+		if (l->tamanho > 2)
+		{
+			t_nodo *q;
+			while (p->prox != NULL)
+			{
+				q = p;
+				p = p->prox;
+			}
+			*item = p->chave;
+			q->prox = NULL;
+		}
+		else
+		{
+			*item = p->chave;
+			l->ini = NULL;
+		}
+		l->tamanho--;
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 int remove_item_lista(int chave, int *item, t_lista *l)
 {
-	return 1;
+	if (l->tamanho > 0)
+	{
+		t_nodo *p = l->ini;
+		t_nodo *q;
+		while (p->prox != NULL)
+		{
+			q = p;
+			p = p->prox;
+			if (p->chave == chave)
+			{
+				*item = p->chave;
+				q->prox = p->prox;
+			}
+		}
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 int pertence_lista(int chave, t_lista *l)
