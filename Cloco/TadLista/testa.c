@@ -120,14 +120,12 @@ int testa_remocoes(t_lista *l, t_lista *o, t_lista *c) {
         if (! remove_primeiro_lista(&item,l)) return 0;
     printf("l: ");
     imprime_lista(l);
-    printf("\n");
     printf("Remocao no final: remove todos de o\n");
     while (! lista_vazia(o))
     /*while (o->tamanho)*/
         if (! remove_ultimo_lista(&item,o)) return 0;
     printf("o: ");
     imprime_lista(o);
-    printf("\n");
 
     printf("Remocao em ordem: remove elementos selecionados de c\n");
     if (remove_item_lista(0,&item,c)) printf("removeu %d\n",0);
@@ -170,8 +168,8 @@ int main() {
 
     if (! cria_listas(&l,&m,&o,&c)) return 1; 
     if (! testa_insercoes(&l,&m,&o)) return 1; 
-    /*if (! testa_copia(&o,&c)) return 1; 
-    if (! testa_concatencao(&l,&m)) return 1;*/
+    if (! testa_copia(&o,&c)) return 1; 
+    /*if (! testa_concatencao(&l,&m)) return 1;*/
     if (! testa_remocoes(&l, &o, &c)) return 1;
     /*testa_busca(&c);*/
     destroi_todas_listas(&l, &m, &o, &c);

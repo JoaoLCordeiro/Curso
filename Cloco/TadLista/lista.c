@@ -31,16 +31,19 @@ int lista_vazia (t_lista *l)
 
 void destroi_lista(t_lista *l)
 {
-	t_nodo *p = l->ini;
-	while ( p->prox != NULL )
-	{ 
-		l->ini = p->prox;		/*inicio aponta pro proximo*/
-		free(p);			/*libera anterior*/
-		p = l->ini;			/*p é p proximo*/
+	if (l->ini != NULL)
+	{
+		t_nodo *p = l->ini;
+		while ( p->prox != NULL )
+		{ 
+			l->ini = p->prox;		/*inicio aponta pro proximo*/
+			free(p);			/*libera anterior*/
+			p = l->ini;			/*p é p proximo*/
+		}
+		free(p);
+		l->ini = NULL;
+		l->tamanho = 0;
 	}
-	free(p);
-	l->ini = NULL;
-	l->tamanho = 0;
 }
 
 int insere_inicio_lista(int x, t_lista *l)
@@ -141,11 +144,10 @@ int remove_primeiro_lista(int *item, t_lista *l)
 
 int remove_ultimo_lista(int *item, t_lista *l)
 {
-	printf("%d ",l->tamanho);
 	if (l->tamanho != 0)
 	{
 		t_nodo *p = l->ini;
-		if (l->tamanho > 2)
+		if (l->tamanho > 1)
 		{
 			t_nodo *q;
 			while (p->prox != NULL)
@@ -175,15 +177,26 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 	if (l->tamanho > 0)
 	{
 		t_nodo *p = l->ini;
-		t_nodo *q;
-		while (p->prox != NULL)
+		if (p->chave == chave)
 		{
-			q = p;
-			p = p->prox;
-			if (p->chave == chave)
+			*item = p->chave;
+			l->ini = p->prox;
+			l->tamanho--;
+		}
+		else
+		{
+			t_nodo *q;
+			while (p->prox != NULL)
 			{
-				*item = p->chave;
-				q->prox = p->prox;
+				q = p;
+				p = p->prox;
+				if (p->chave == chave)
+				{
+					*item = p->chave;
+					q->prox = p->prox;
+					printf("removeu %d\n",*item);
+					l->tamanho--;
+				}
 			}
 		}
 		return 1;
@@ -206,6 +219,32 @@ int concatena_listas(t_lista *l, t_lista *m)
 
 int copia_lista(t_lista *l, t_lista *m)
 {
-	return 1;
+	cria_lista (m);
+	t_nodo *p = l->ini;
+	if (p != NULL)
+	{
+		t_nodo *new;
+		new = malloc (sizeof(t_nodo));
+		m->ini = new;
+		new->chave = p->chave;
+		new->prox = NULL;
+		t_nodo *q = new;
+		p = p->prox;
+		m->tamanho = 1;
+		while (p != NULL)
+		{
+			new = malloc (sizeof(t_nodo));
+			q->prox = new;
+			new->chave = p->chave;
+			q = new;
+			p = p->prox;
+			m->tamanho++;
+		}
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}	
 }
 
