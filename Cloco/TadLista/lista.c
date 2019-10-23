@@ -65,17 +65,17 @@ int insere_fim_lista(int x, t_lista *l)
 	t_nodo *p = l->ini;
 	if (p != NULL)
 	{
-		while ( p->prox != NULL )		/*encontra o ultimo elemento*/
+		while ( p->prox != NULL )			/*encontra o ultimo elemento*/
 		{
 			p = p->prox;
 		}
 	}
-	t_nodo *new = malloc (sizeof(t_nodo));
-	if (p != NULL)
+	t_nodo *new = malloc (sizeof(t_nodo));		
+	if (p != NULL)						/*se tem algum elemento na lista*/
 	{
 		p->prox = new;
 	}
-	else
+	else							/*caso seja o primeiro elemento da lista*/
 	{
 		l->ini = new;
 	}
@@ -87,11 +87,11 @@ int insere_fim_lista(int x, t_lista *l)
 
 int insere_ordenado_lista(int x, t_lista *l)
 {
-	if ((l->ini != NULL)&&(l->ini->chave < x))
+	if ((l->ini != NULL)&&(l->ini->chave < x))		/*se tiver algum elemento na lista e o nao for pra inserir no comeco*/
 	{
 		t_nodo *p = l->ini;
 		t_nodo *q;
-		while ((p != NULL) && (p->chave < x))
+		while ((p != NULL) && (p->chave < x))		/*enquanto nao chega no final da lista e os elementos forem menores que x*/
 		{
 			q = p;
 			p = p->prox;
@@ -103,7 +103,7 @@ int insere_ordenado_lista(int x, t_lista *l)
 	}
 	else
 	{
-		t_nodo *new = malloc (sizeof(t_nodo));
+		t_nodo *new = malloc (sizeof(t_nodo));		/*aqui simplesmente insere no comeco*/
 		new->prox = l->ini;
 		new->chave = x;
 		l->ini = new;
@@ -114,14 +114,14 @@ int insere_ordenado_lista(int x, t_lista *l)
 
 void imprime_lista (t_lista *l)
 {
-	if ( l->tamanho != 0 )
+	if ( l->tamanho != 0 )					/*se tiver elemento na lista*/
 	{
 		t_nodo *p = l->ini;
 		printf ("tam: %d -> ",l->tamanho);
 		if ( p != NULL )
 		{
 			printf ("%d ", p->chave);
-			while ( p->prox != NULL )
+			while ( p->prox != NULL )		/*ate chegar no final da lista*/
 			{
 				p = p->prox;
 				printf("%d ", p->chave);
@@ -133,7 +133,7 @@ void imprime_lista (t_lista *l)
 
 int remove_primeiro_lista(int *item, t_lista *l)
 {
-	if (l->ini != NULL)
+	if (l->ini != NULL)					/*se tiver elemento na lista*/
 	{
 		*item = l->ini->chave;
 		l->ini = l->ini->prox;
@@ -148,13 +148,13 @@ int remove_primeiro_lista(int *item, t_lista *l)
 
 int remove_ultimo_lista(int *item, t_lista *l)
 {
-	if (l->tamanho != 0)
+	if (l->tamanho != 0)					/*se tiver elemento na lista*/
 	{
 		t_nodo *p = l->ini;
-		if (l->tamanho > 1)
+		if (l->tamanho > 1)				/*se tiver mais que um na lista*/
 		{
 			t_nodo *q;
-			while (p->prox != NULL)
+			while (p->prox != NULL)			/*até chegar no fim da lista*/
 			{
 				q = p;
 				p = p->prox;
@@ -162,7 +162,7 @@ int remove_ultimo_lista(int *item, t_lista *l)
 			*item = p->chave;
 			q->prox = NULL;
 		}
-		else
+		else						/*se tiver só 1 elemento*/
 		{
 			*item = p->chave;
 			l->ini = NULL;
@@ -178,10 +178,10 @@ int remove_ultimo_lista(int *item, t_lista *l)
 
 int remove_item_lista(int chave, int *item, t_lista *l)
 {
-	if (l->tamanho > 0)
+	if (l->tamanho > 0)					/*se tiver elemento na lista*/
 	{
 		t_nodo *p = l->ini;
-		if (p->chave == chave)
+		if (p->chave == chave)				/*se o primeiro elemento for o desejado*/
 		{
 			*item = p->chave;
 			l->ini = p->prox;
@@ -191,11 +191,11 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 		else
 		{
 			t_nodo *q;
-			while (p->prox != NULL)
+			while (p->prox != NULL)			/*até chegar no fim da lista*/
 			{
 				q = p;
 				p = p->prox;
-				if (p->chave == chave)
+				if (p->chave == chave)		/*se achar o elemento desejado*/
 				{
 					*item = p->chave;
 					q->prox = p->prox;
@@ -216,9 +216,9 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 int pertence_lista(int chave, t_lista *l)
 {
 	t_nodo *p = l->ini;
-	while (p != NULL)
+	while (p != NULL)					/*até chegar no fim*/
 	{
-		if (p->chave == chave)
+		if (p->chave == chave)				/*se achar o elemento*/
 		{
 			return 1;
 		}
@@ -230,9 +230,9 @@ int pertence_lista(int chave, t_lista *l)
 int concatena_listas(t_lista *l, t_lista *m)
 {
 	t_nodo *p = l->ini;
-	if (p != NULL)
+	if (p != NULL)						/*se tiver elementos em l*/
 	{
-		while (p->prox != NULL)
+		while (p->prox != NULL)				/*até chegar no fim*/
 		{
 			p = p->prox;
 		}
@@ -241,9 +241,9 @@ int concatena_listas(t_lista *l, t_lista *m)
 		l->tamanho = l->tamanho + m->tamanho;
 		m->tamanho = 0;
 	}
-	else
+	else							/*se nao tiver elemento em l*/
 	{
-		l->ini = m->ini;
+		l->ini = m->ini;				/*o inicio de l recebe inicio de m*/
 		l->tamanho = m->tamanho;
 	}
 	return 1;
@@ -253,7 +253,7 @@ int copia_lista(t_lista *l, t_lista *m)
 {
 	cria_lista (m);
 	t_nodo *p = l->ini;
-	if (p != NULL)
+	if (p != NULL)						/*se tem elementos na lista*/
 	{
 		t_nodo *new;
 		new = malloc (sizeof(t_nodo));
@@ -262,8 +262,8 @@ int copia_lista(t_lista *l, t_lista *m)
 		new->prox = NULL;
 		t_nodo *q = new;
 		p = p->prox;
-		m->tamanho = 1;
-		while (p != NULL)
+		m->tamanho = 1;					/*até aqui, copiou o primeiro elemento*/
+		while (p != NULL)				/*até chegar no fim*/
 		{
 			new = malloc (sizeof(t_nodo));
 			q->prox = new;
