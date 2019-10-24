@@ -52,10 +52,10 @@ void destroi_lista(t_lista *l)
 
 int insere_inicio_lista(int x, t_lista *l)
 {
-	t_nodo *new = malloc (sizeof(t_nodo));	/*aloca espaço pro novo elemento*/
+	t_nodo *new = (t_nodo *) malloc (sizeof(t_nodo));	/*aloca espaço pro novo elemento*/
 	new->chave = x;				
-	new->prox = l->ini;			/*new->prox aponta pro antigo inicio*/
-	l->ini = new;				/*new é o novo inicio*/
+	new->prox = l->ini;					/*new->prox aponta pro antigo inicio*/
+	l->ini = new;						/*new é o novo inicio*/
 	l->tamanho++;
 	return 1;
 }
@@ -70,7 +70,7 @@ int insere_fim_lista(int x, t_lista *l)
 			p = p->prox;
 		}
 	}
-	t_nodo *new = malloc (sizeof(t_nodo));		
+	t_nodo *new = (t_nodo *) malloc (sizeof(t_nodo));		
 	if (p != NULL)						/*se tem algum elemento na lista*/
 	{
 		p->prox = new;
@@ -96,14 +96,14 @@ int insere_ordenado_lista(int x, t_lista *l)
 			q = p;
 			p = p->prox;
 		}
-		t_nodo *new = malloc (sizeof(t_nodo));
+		t_nodo *new = (t_nodo *) malloc (sizeof(t_nodo));
 		q->prox = new;
 		new->prox = p;
 		new->chave = x;
 	}
 	else
 	{
-		t_nodo *new = malloc (sizeof(t_nodo));		/*aqui simplesmente insere no comeco*/
+		t_nodo *new = (t_nodo *) malloc (sizeof(t_nodo));		/*aqui simplesmente insere no comeco*/
 		new->prox = l->ini;
 		new->chave = x;
 		l->ini = new;
@@ -136,7 +136,9 @@ int remove_primeiro_lista(int *item, t_lista *l)
 	if (l->ini != NULL)					/*se tiver elemento na lista*/
 	{
 		*item = l->ini->chave;
+		t_nodo *p = l->ini;
 		l->ini = l->ini->prox;
+		free (p);
 		l->tamanho--;
 		return 1;
 	}
@@ -160,11 +162,13 @@ int remove_ultimo_lista(int *item, t_lista *l)
 				p = p->prox;
 			}
 			*item = p->chave;
+			free(p);
 			q->prox = NULL;
 		}
 		else						/*se tiver só 1 elemento*/
 		{
 			*item = p->chave;
+			free(l->ini);
 			l->ini = NULL;
 		}
 		l->tamanho--;
@@ -185,6 +189,7 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 		{
 			*item = p->chave;
 			l->ini = p->prox;
+			free(p);
 			l->tamanho--;
 			return 1;
 		}
@@ -199,6 +204,7 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 				{
 					*item = p->chave;
 					q->prox = p->prox;
+					free(p);
 					l->tamanho--;
 					return 1;
 				}
