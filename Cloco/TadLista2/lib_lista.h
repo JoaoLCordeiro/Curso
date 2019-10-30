@@ -119,7 +119,7 @@ void decrementa_atual(t_lista *l);
   Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
   Se atual não for válido a função retorna zero senão retorna 1.
 */
-int consulta_item_atual(int *item, t_lista *atual);
+int consulta_item_atual(int *item, t_lista *l);
 
 /*
   Remove o elemento apontado por atual da lista l e o retorna em *item.
