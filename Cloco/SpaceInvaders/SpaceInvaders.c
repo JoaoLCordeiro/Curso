@@ -211,11 +211,11 @@ int main ()
                        		}
 			}	
 		}
-		if (ind % 2 == 0)					/*quando o jogador pode se mover*/
-                {
+		/*if (ind % 2 == 0)*/					/*quando o jogador pode se mover*/
+                /*{*/
                 	MoveJogador(&colunaJogador,key,janela_y);
 			ImprimeJogador(linhaJogador,colunaJogador,jogo);
-                }							
+                /*}*/							
 		box(jogo,0,0);
 		wrefresh(jogo);
 		ind++;
