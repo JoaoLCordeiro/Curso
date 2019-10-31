@@ -26,17 +26,17 @@ int copia_lista(t_lista *l, t_lista *c);
   da lista l e destroi a lista m.
   Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
-/*int concatena_listas(t_lista *l, t_lista *c);*/
+int concatena_listas(t_lista *l, t_lista *c);
 
 /*
   Ordena a lista l em ordem crescente.
   Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
-/*int ordena_lista(t_lista *l);*/
+int ordena_lista(t_lista *l);
 
 /*
   Funcao que cria uma nova lista i pela intercalacao dos elementos
   das listas l e c. As listas l e c devem estar ordenadas.
   Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
-/*int intercala_listas(t_lista *l, t_lista *m, t_lista *i);*/
+int intercala_listas(t_lista *l, t_lista *m, t_lista *i);

@@ -284,6 +284,33 @@ int destroi_listas(t_lista *l, t_lista *m, t_lista *n, t_lista *o)
 	return 1;
 }
 
+int testa_concatena(t_lista *l, t_lista *m)
+{
+	if (!concatena_listas(l,m))
+		return 0;
+	printf("l -> ");
+	imprime_lista(l);
+	return 1;
+}
+
+int testa_ordena(t_lista *l)
+{
+	if (!ordena_lista(l))
+		return 0;
+	printf("l -> ");
+	imprime_lista(l);
+	return 1;
+}
+
+int testa_intercala(t_lista *l, t_lista *o, t_lista *n)
+{
+	if (!intercala_listas(l,o,n))
+		return 0;
+	printf("n -> ");
+	imprime_lista(n);
+	return 1;
+}
+
 int main ()
 {
 	t_lista l,m,n,o;
@@ -309,6 +336,21 @@ int main ()
 
 	if (testa_atual(&l,&m,&n,&o))
 		printf("Pertencimentos realizados com sucesso\n");
+	printf("\n");
+	
+	if (testa_concatena(&l,&m))
+		printf("Concatena realizada com sucesso\n");
+	printf("\n");
+
+	if (testa_ordena(&l))
+		printf("Ordena realizada com sucesso\n");
+	printf("\n");
+	
+	destroi_lista(&n);
+	inicializa_lista(&n);
+	
+	if (testa_intercala(&l,&o,&n))
+		printf("Intercala realizado com sucesso\n");
 	printf("\n");
 	
 	destroi_listas(&l,&m,&n,&o);

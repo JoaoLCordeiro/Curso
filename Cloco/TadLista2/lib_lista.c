@@ -41,15 +41,19 @@ int lista_vazia (t_lista *l)
 
 void destroi_lista(t_lista *l)
 {
-	t_nodo *p = l->ini->prox;
-	while ( p->prox != NULL)		/*destroi elementos intermediarios*/
+	if (l->tamanho != 0)
 	{
-		p = p->prox;
+		t_nodo *p = l->ini->prox;
+		while ( p->prox != NULL)		/*destroi elementos intermediarios*/
+		{
+			p = p->prox;
 
-		p->prev->chave = 0;
-		p->prev->prev = NULL;
-		p->prev->prox = NULL;
-		free (p->prev);
+			p->prev->chave = 0;
+			p->prev->prev = NULL;
+			p->prev->prox = NULL;
+			free (p->prev);
+		}
+		l->tamanho = 0;
 	}
 	l->ini->prox = NULL;			/*destrói ini e fim*/
 	free (l->ini);
@@ -72,6 +76,7 @@ int insere_inicio_lista(int item, t_lista *l)
 	new->prev = l->ini;
 	new->chave = item;
 	l->ini->prox = new;
+	l->tamanho ++;
 	return 1;
 }
 
@@ -93,6 +98,7 @@ int insere_fim_lista(int item, t_lista *l)
 	new->chave = item;
 	l->fim->prev->prox = new;
 	l->fim->prev = new;
+	l->tamanho++;
 	return 1;
 }
 
@@ -114,6 +120,7 @@ int insere_ordenado_lista(int item, t_lista *l)
 	p->prev->prox = new;
 	p->prev = new;
 	new->chave = item;
+	l->tamanho++;
 	return 1;
 }
 
@@ -126,6 +133,7 @@ int remove_inicio_lista(int *item, t_lista *l)
 	l->ini->prox->prev->prox = NULL;		/*o prox do primeiro elemento recebe nulo*/
 	free (l->ini->prox->prev);			/*free no primeiro elemento*/
 	l->ini->prox->prev = l->ini;			/*o prev do segundo elemento recebe o ini*/
+	l->tamanho--;
 	return 1;
 }
 
@@ -138,6 +146,7 @@ int remove_fim_lista(int *item, t_lista *l)
 	l->fim->prev->prox->prev = NULL;
 	free (l->fim->prev->prox);
 	l->fim->prev->prox = l->fim;
+	l->tamanho--;
 	return 1;
 }
 
@@ -162,7 +171,8 @@ int remove_item_lista(int chave, int *item, t_lista *l)
 		p->prox = NULL;
 		p->chave = 0;
 		free (p);
-		return 1;	
+		l->tamanho--;
+		return 1;
 	}
 }
 
@@ -250,5 +260,6 @@ int remove_item_atual(int *item, t_lista *l)
 	{
 		l->atual = NULL;
 	}
+	l->tamanho--;
 	return 1;
 }
