@@ -66,5 +66,8 @@ int main ()
         printf("o -> ");
         imprime_lista(&o);									
 
+	destroi_lista(&l);
+	destroi_lista(&m);
+	destroi_lista(&o);
 	return 1;
 }
