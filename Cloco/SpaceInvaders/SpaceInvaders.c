@@ -25,12 +25,12 @@
 #define EspacoAliensL 20	/* 4*5, onde 4 é o tamanho de linha de cada alien e 5 é o número de aliens*/
 #define constTemp 40000
 
-typedef struct t_alien{
+/*typedef struct t_alien	acredito que nao sera necessario o uso dessa struct
 	int vida;
 	int posi_l;
 	int posi_c;
 	int tipo;
-} *t_alien;
+} *t_alien;*/
 
 void InicializaSpritesAliens(char **vetors)	/*essa funcao inicaliza as sprites dos aliens em um vetor com esses sprites*/
 {
@@ -54,7 +54,7 @@ void InicializaSpritesAliens(char **vetors)	/*essa funcao inicaliza as sprites d
 	strcpy(vetors[17],sprite3i6);
 }
 
-void InicializaMatrizAliens(int **matriz)
+void InicializaMatrizAliens(int **matriz)	/*NAO ESQUECER DE COMENTAR O CODIGO*/
 {
 	int i;
 	int j;
