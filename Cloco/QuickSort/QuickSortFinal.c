@@ -54,7 +54,7 @@ int main ()
 	printf("\n");
 	QuickSort(vetor,0,i-1);
 	int j=0;
-	while (j<i)
+	while (j<i)                     
         {
         	printf("%d ",vetor[j]);
 		j++;
