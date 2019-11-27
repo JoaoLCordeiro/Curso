@@ -3,7 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-int esquerda (int i)
+int esquerda (int i)    
 {
     return (i*2+1);
 }
@@ -32,7 +32,7 @@ void Heap (int *vetor, int i,int tam)
     vetor[maior] = aux;
 }
 
-void gera_vetor (int *v, int t)
+void gera_vetor (int *v, int t)         
 {
 	int i;
 	srand (time(NULL));
